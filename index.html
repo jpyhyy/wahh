@@ -29,53 +29,10 @@
             margin: 0 auto;
         }
 
-        
-       /* ====================== 移动端完美适配：居中 + 留出右侧悬浮栏 + 等比例缩小 ====================== */
-       @media (max-width: 768px) {
-           body {
-               padding-right: 0 !important;      
-               padding-left: 0 !important;
-               margin: 0 !important;            
-               padding-top: 70px;               
-               transform: none !important;     
-               width: 100%;
-               overflow-x: hidden;
-           }
-           img {
-               max-width: 100% !important;
-               height: auto !important;
-           }
-           .banner, #banne {
-               height: auto !important;
-               aspect-ratio: 16/9;
-               margin-left: 10px;
-               margin-right: 10px;
-           }
-           .product-card {
-               flex: 1 1 220px !important;
-               max-width: 260px !important;
-           }
-           html {
-               font-size: 14px;
-           }
-       
-           /* 右侧悬浮栏自适应缩小 */
-           .right li {
-               width: 70px;
-               height: 70px;
-           }
-           .right li a.iconfont {
-               font-size: 24px;
-           }
-           .right li .info {
-               font-size: 10px;
-           }
-       }
-
-        /* ========== 导航栏 ========== */
+        /* ========== 导航栏 - 保持固定横向排列 ========== */
         nav {
             background: linear-gradient(90deg, #ffffff, #f2fcff);
-            border-radius: 12px;
+            border-radius: 0;
             position: fixed;
             top: 0;
             left: 0;
@@ -84,11 +41,12 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 15px;
+            height: 70px;
         }
         .nav-logo {
-            height: 50px;
-            margin-right: 20px;
+            height: 45px;
+            margin-right: 15px;
         }
         nav .container {
             display: flex;
@@ -100,6 +58,7 @@
             display: flex;
             padding: 0;
             margin: 0;
+            white-space: nowrap;
         }
         nav ul li {
             position: relative;
@@ -109,10 +68,11 @@
             display: block;
             color: #333;
             text-decoration: none;
-            padding: 1rem 1.2rem;
+            padding: 0.6rem 0.8rem;
             font-weight: 500;
             transition: all 0.3s ease;
             border-radius: 50px;
+            font-size: 14px;
         }
         nav ul li a:hover {
             background: linear-gradient(90deg, #ff4d4f, #ff7875);
@@ -126,7 +86,7 @@
             position: absolute;
             top: 100%;
             left: 0;
-            min-width: 180px;
+            min-width: 150px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -139,7 +99,7 @@
         }
         nav ul li ul li a {
             color: #333;
-            padding: 0.8rem 1.2rem;
+            padding: 0.7rem 1rem;
         }
         nav ul li ul li a:hover {
             background: #e6f7ff;
@@ -153,18 +113,18 @@
 
         /* 搜索框 */
         .search{
-            width: 200px;
-            height: 40px;
+            width: 160px;
+            height: 36px;
             border: 2px solid #feafcf;
             display: flex;
             border-radius: 5px;
-            float: right;
+            margin-left: 10px;
         }
         .search input{
-            width: 160px;
+            width: 120px;
             border: 0;
             outline: 0;
-            padding-left: 10px;
+            padding-left: 8px;
         }
         .search button{
             width: 40px;
@@ -178,10 +138,11 @@
         /* ========== Banner区域 ========== */
         .banner {
             position: relative;
-            height: 500px;
-            max-width: 1000px;
+            height: auto;
+            aspect-ratio: 16/9;
+            max-width: 100%;
             border-radius: 20px;
-            margin: 2rem auto;
+            margin: 2rem 15px;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -209,9 +170,10 @@
             z-index: 3;
             text-align: center;
             color: #fff;
+            padding: 0 15px;
         }
         .banner-content h1 {
-            font-size: clamp(2rem, 5vw, 4rem);
+            font-size: clamp(1.8rem, 5vw, 4rem);
             margin-bottom: 1rem;
             text-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
@@ -223,13 +185,13 @@
             font-weight: 80;
         }
         .banner-content p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            margin-bottom: 2rem;
+            font-size: clamp(0.95rem, 2vw, 1.2rem);
+            margin-bottom: 1.5rem;
             opacity: 0.95;
         }
         .banner-btn {
             display: inline-block;
-            padding: 0.8rem 2rem;
+            padding: 0.7rem 1.8rem;
             background: linear-gradient(90deg, #ff4d4f, #ff7875);
             color: #fff;
             text-decoration: none;
@@ -249,12 +211,12 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* ========== 产品展示区 ========== */
+        /* ========== 产品展示区 - 手机端全屏占满 ========== */
         .section-title {
             text-align: center;
             font-size: clamp(1.5rem, 3vw, 2.5rem);
             color: #333;
-            margin: 3rem 0 2rem;
+            margin: 2rem 0 1.5rem;
             position: relative;
             display: inline-block;
             left: 50%;
@@ -273,13 +235,14 @@
         .product-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 1.5rem;
             justify-content: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
+            padding: 0 15px;
         }
         .product-card {
-            flex: 1 1 280px;
-            max-width: 320px;
+            flex: 1 1 100%;
+            max-width: 100%;
             background: #fff;
             border-radius: 20px;
             padding: 1.5rem;
@@ -356,12 +319,13 @@
 
         /* ========== 轮播图 ========== */
         #banne{
-            max-width: 900px;
-            height: 500px;
-            margin: 50px auto;
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 16/9;
+            margin: 30px 15px;
             border: 0;
             position: relative;
-            border-radius: 30px;
+            border-radius: 20px;
             overflow: hidden;
         }
         #banne img{
@@ -372,8 +336,8 @@
         }
         #banne a{
             background-color: rgba(186, 186, 186, 0.5);
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -382,20 +346,20 @@
             text-decoration: none;
             position: absolute;
             top: 50%;
-            margin-top: -25px;
+            margin-top: -20px;
             cursor: pointer;
             z-index: 10;
         }
         #banne a:hover{
             background-color: rgba(186, 186, 186, 1);
         }
-        .prev{ left: 20px; }
-        .next{ right: 20px; }
+        .prev{ left: 15px; }
+        .next{ right: 15px; }
         #button{
             display: flex;
             width: 100px;
             position: absolute;
-            bottom: 20px;
+            bottom: 15px;
             left: 50%;
             margin-left: -50px;
             z-index: 10;
@@ -418,12 +382,12 @@
         .rank-section {
             background: #fff;
             border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 4rem;
+            padding: 1.5rem;
+            margin: 0 15px 3rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         .rank-item {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
         .rank-header {
             display: flex;
@@ -440,7 +404,7 @@
         }
         .progress-wrap {
             width: 100%;
-            height: 12px;
+            height: 10px;
             background: #f0f0f0;
             border-radius: 10px;
             overflow: hidden;
@@ -458,7 +422,8 @@
 
         /* ========== 品牌历程 ========== */
         .history-section {
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
+            padding: 0 15px;
         }
         .history-table {
             width: 100%;
@@ -467,19 +432,23 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: block;
+            overflow-x: auto;
         }
         .history-table th {
             background: linear-gradient(90deg, #1890ff, #40a9ff);
             color: #fff;
-            padding: 1rem;
+            padding: 0.8rem;
             text-align: left;
             font-weight: 600;
+            white-space: nowrap;
         }
         .history-table td {
-            padding: 1rem;
+            padding: 0.8rem;
             border-bottom: 1px solid #f0f0f0;
             color: #333;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
         .history-table tr:last-child td {
             border-bottom: none;
@@ -506,8 +475,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 90px;
-            width: 90px;
+            height: 65px;
+            width: 65px;
             background: rgba(255,255,255,0.9);
             border-radius: 10px 0 0 10px;
             margin-bottom: 5px;
@@ -516,37 +485,38 @@
             cursor: pointer;
         }
         .right li a.iconfont {
-            font-size: 32px;
+            font-size: 24px;
             color: #ff4d4f;
             margin-bottom: 4px;
         }
         .right li .info {
-            font-size: 12px;
+            font-size: 10px;
             color: #333;
         }
 
         /* ========== 产品详情浮现卡片 ========== */
         .black-bg-container {
-            max-width: 1200px;
-            margin: 60px auto;
+            max-width: 100%;
+            margin: 40px 15px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            padding: 30px;
+            justify-content: center;
+            align-items: stretch;
+            gap: 12px;
+            padding: 20px;
             background: linear-gradient(135deg, rgba(255, 170, 255, 0.2) 0%, rgba(255,77,79,0.2) 100%);
             border-radius: 20px;
+            flex-wrap: wrap;
         }
         .black-bg-container .food{
-            flex: 1;
+            flex: 1 1 100%;
             height: auto;
-            min-height: 420px;
+            min-height: 380px;
             background-color: pink;
             border-radius: 10px;
             opacity: 0;
             transform: translateY(40px);
             transition: all 1s;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0 0 12px rgba(248, 46, 46, 0.15);
         }
@@ -559,14 +529,15 @@
 
         .food img{
             display: block;
-            margin: 0 auto 15px;
-            width: 130px;
-            height: 130px;
+            margin: 0 auto 12px;
+            width: 110px;
+            height: 110px;
             object-fit: contain;
         }
         .food h3{
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #333;
+            font-size: 1.1rem;
         }
         .food p{
             font-size: 13px;
@@ -609,40 +580,41 @@
         /* ========== 选购页面 ========== */
         .shop-page {
             display: none;
-            padding: 30px 0;
+            padding: 20px 0;
         }
         .shop-container {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            padding: 0 15px;
         }
         .shop-item {
-            width: 200px;
+            width: 160px;
             background: white;
             border-radius: 15px;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .shop-item img {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             object-fit: contain;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .shop-item h4 {
-            font-size: 16px;
+            font-size: 15px;
             margin-bottom: 5px;
         }
         .shop-item .price {
             color: #ff4d4f;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .shop-item button {
-            padding: 6px 12px;
+            padding: 5px 10px;
             background: #1890ff;
             color: white;
             border: none;
@@ -656,14 +628,14 @@
         /* 购物车 */
         .cart-box {
             background: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 15px;
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: calc(100% - 30px);
+            margin: 0 15px;
         }
         .cart-title {
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-size: 18px;
+            margin-bottom: 12px;
             color: #333;
             display: flex;
             justify-content: space-between;
@@ -674,38 +646,40 @@
             font-weight: bold;
         }
         .cart-list {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .cart-item {
-            padding: 10px;
+            padding: 8px;
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .cart-item-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .cart-item-name {
-            width: 120px;
+            width: 100px;
         }
         .cart-item-num {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         .num-btn {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             border: none;
             background: #f0f0f0;
             border-radius: 4px;
             cursor: pointer;
         }
         .cart-clear {
-            padding: 8px 16px;
+            padding: 6px 12px;
             background: #ff4d4f;
             color: white;
             border: none;
@@ -713,21 +687,23 @@
             cursor: pointer;
         }
         .back-btn {
-            padding: 8px 16px;
+            padding: 6px 12px;
             background: #1890ff;
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            margin-left: 15px;
         }
 
         /* ========== 页脚 ========== */
         footer {
             background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%);
             color: #fff;
-            padding: 2rem 0;
+            padding: 1.5rem 0;
             border-radius: 20px 20px 0 0;
+            margin: 0 15px;
         }
         .footer-content {
             display: flex;
@@ -738,7 +714,7 @@
         .footer-links ul {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 1.2rem;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -756,6 +732,17 @@
             opacity: 0.7;
             font-size: 0.9rem;
             text-align: center;
+        }
+
+        /* ====================== 电脑端适配：两列布局 ====================== */
+        @media (min-width: 769px) {
+            .product-card {
+                flex: 1 1 280px;
+                max-width: 320px;
+            }
+            .black-bg-container .food {
+                flex: 1 1 240px;
+            }
         }
     </style>
 </head>

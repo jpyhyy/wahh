@@ -1,0 +1,44 @@
+{
+  "id": "5168019",
+  "name": "222",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "765338",
+      "name": "购物车",
+      "font_class": "cart",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "908552",
+      "name": "售后服务",
+      "font_class": "shouhoufuwu",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "5810898",
+      "name": "手机app",
+      "font_class": "shoujiapp",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "7093672",
+      "name": "个人中心",
+      "font_class": "gerenzhongxin",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
+      "icon_id": "18511811",
+      "name": "人工客服",
+      "font_class": "kefu",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}

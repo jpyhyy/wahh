@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>娃哈哈 - 喝娃哈哈 天天笑哈哈</title>
+    <style>
+        /* 全局基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-top: 80px;
+            margin: 0;
+            position: relative;
+        }
+        /* 通用容器，控制页面宽度 */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        
+       /* ====================== 移动端完美适配：居中 + 留出右侧悬浮栏 + 等比例缩小 ====================== */
+       @media (max-width: 768px) {
+           body {
+               padding-right: 0 !important;      
+               padding-left: 0 !important;
+               margin: 0 !important;            
+               padding-top: 70px;               
+               transform: none !important;     
+               width: 100%;
+               overflow-x: hidden;
+           }
+           img {
+               max-width: 100% !important;
+               height: auto !important;
+           }
+           .banner, #banne {
+               height: auto !important;
+               aspect-ratio: 16/9;
+               margin-left: 10px;
+               margin-right: 10px;
+           }
+           .product-card {
+               flex: 1 1 220px !important;
+               max-width: 260px !important;
+           }
+           html {
+               font-size: 14px;
+           }
+       
+           /* 右侧悬浮栏自适应缩小 */
+           .right li {
+               width: 70px;
+               height: 70px;
+           }
+           .right li a.iconfont {
+               font-size: 24px;
+           }
+           .right li .info {
+               font-size: 10px;
+           }
+       }
+
+        /* ========== 导航栏 ========== */
+        nav {
+            background: linear-gradient(90deg, #ffffff, #f2fcff);
+            border-radius: 12px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .nav-logo {
+            height: 50px;
+            margin-right: 20px;
+        }
+        nav .container {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            position: relative;
+            padding: 0;
+        }
+        nav ul li a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 1rem 1.2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+        nav ul li a:hover {
+            background: linear-gradient(90deg, #ff4d4f, #ff7875);
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255,77,79,0.3);
+        }
+
+        /* 二级导航 */
+        nav ul li ul {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 180px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        nav ul li ul li a {
+            color: #333;
+            padding: 0.8rem 1.2rem;
+        }
+        nav ul li ul li a:hover {
+            background: #e6f7ff;
+            color: #1890ff;
+        }
+        nav ul li:hover ul {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* 搜索框 */
+        .search{
+            width: 200px;
+            height: 40px;
+            border: 2px solid #feafcf;
+            display: flex;
+            border-radius: 5px;
+            float: right;
+        }
+        .search input{
+            width: 160px;
+            border: 0;
+            outline: 0;
+            padding-left: 10px;
+        }
+        .search button{
+            width: 40px;
+            border: 0;
+            background-color: #feafcf;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ========== Banner区域 ========== */
+        .banner {
+            position: relative;
+            height: 500px;
+            max-width: 1000px;
+            border-radius: 20px;
+            margin: 2rem auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .banner-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .banner-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(24,144,255,0.3) 0%, rgba(255,77,79,0.3) 100%);
+            z-index: 2;
+        }
+        .banner-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: #fff;
+        }
+        .banner-content h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .banner-content h1 span {
+            background: linear-gradient(90deg, #fff, #ffe58f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 80;
+        }
+        .banner-content p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        .banner-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(90deg, #ff4d4f, #ff7875);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,77,79,0.4);
+            cursor: pointer;
+        }
+        .banner-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255,77,79,0.5);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* ========== 产品展示区 ========== */
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: #333;
+            margin: 3rem 0 2rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4d4f, #1890ff);
+            border-radius: 2px;
+        }
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+        .product-card {
+            flex: 1 1 280px;
+            max-width: 320px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0.9;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            opacity: 1;
+        }
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .product-card h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .product-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            min-height: 45px;
+        }
+        .product-card .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff4d4f;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .product-card .buy-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.7rem 0;
+            background: linear-gradient(90deg, #1890ff, #40a9ff);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .product-card .buy-btn:hover {
+            background: linear-gradient(90deg, #ff4d4f, #ff7875);
+            letter-spacing: 1px;
+        }
+        .product-card .card-bubble {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: -20px;
+            right: -20px;
+            background: radial-gradient(circle, rgba(255,77,79,0.2) 0%, rgba(255,77,79,0.05) 100%);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .product-card:hover .card-bubble {
+            transform: scale(1.5);
+            opacity: 0.7;
+        }
+
+        /* ========== 轮播图 ========== */
+        #banne{
+            max-width: 900px;
+            height: 500px;
+            margin: 50px auto;
+            border: 0;
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+        #banne img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 1s ease;
+        }
+        #banne a{
+            background-color: rgba(186, 186, 186, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            position: absolute;
+            top: 50%;
+            margin-top: -25px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        #banne a:hover{
+            background-color: rgba(186, 186, 186, 1);
+        }
+        .prev{ left: 20px; }
+        .next{ right: 20px; }
+        #button{
+            display: flex;
+            width: 100px;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -50px;
+            z-index: 10;
+        }
+        #button li{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: gold;
+            list-style-type: none;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #button li.select {
+            background-color: red;
+            transform: scale(1.3);
+        }
+
+        /* ========== 人气榜单 ========== */
+        .rank-section {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .rank-item {
+            margin-bottom: 1.5rem;
+        }
+        .rank-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .rank-name {
+            color: #333;
+        }
+        .rank-value {
+            color: #ff4d4f;
+            font-weight: 700;
+        }
+        .progress-wrap {
+            width: 100%;
+            height: 12px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #ff4d4f, #ff7875);
+            transition: all 0.8s ease;
+        }
+        .rank-item:hover .progress-bar {
+            filter: brightness(1.2);
+            transform: scaleX(1.02);
+        }
+
+        /* ========== 品牌历程 ========== */
+        .history-section {
+            margin-bottom: 4rem;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .history-table th {
+            background: linear-gradient(90deg, #1890ff, #40a9ff);
+            color: #fff;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .history-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+        .history-table tr:hover td {
+            background: linear-gradient(90deg, #f0f9ff, #e6f7ff);
+            transform: translateX(5px);
+        }
+
+        /* ========== 右侧悬浮栏 ========== */
+        .right{
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 99;
+        }
+        .right ul {
+            padding: 0;
+            margin: 0;
+        }
+        .right li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 90px;
+            width: 90px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px 0 0 10px;
+            margin-bottom: 5px;
+            list-style: none;
+            box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .right li a.iconfont {
+            font-size: 32px;
+            color: #ff4d4f;
+            margin-bottom: 4px;
+        }
+        .right li .info {
+            font-size: 12px;
+            color: #333;
+        }
+
+        /* ========== 产品详情浮现卡片 ========== */
+        .black-bg-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 170, 255, 0.2) 0%, rgba(255,77,79,0.2) 100%);
+            border-radius: 20px;
+        }
+        .black-bg-container .food{
+            flex: 1;
+            height: auto;
+            min-height: 420px;
+            background-color: pink;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 12px rgba(248, 46, 46, 0.15);
+        }
+        .food:nth-child(1) { background-color: rgba(241, 242, 121, 0.3); }
+        .food:nth-child(2) { background-color: rgba(255, 74, 74, 0.3); }
+        .food:nth-child(3) { background-color: rgba(255, 168, 51, 0.3); }
+        .food:nth-child(4) { background-color: rgba(255, 217, 51, 0.3); }
+        .food:nth-child(5) { background-color: rgba(77, 232, 92, 0.3); }
+        .food:nth-child(6) { background-color: rgba(87, 177, 255, 0.3); }
+
+        .food img{
+            display: block;
+            margin: 0 auto 15px;
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+        }
+        .food h3{
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .food p{
+            font-size: 13px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        /* hover 依次浮现 */
+        .black-bg-container:hover .food:nth-child(1) {
+            transition-delay: 0s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .black-bg-container:hover .food:nth-child(2) {
+            transition-delay: 0.2s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .black-bg-container:hover .food:nth-child(3) {
+            transition-delay: 0.4s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .black-bg-container:hover .food:nth-child(4) {
+            transition-delay: 0.6s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .black-bg-container:hover .food:nth-child(5) {
+            transition-delay: 0.8s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .black-bg-container:hover .food:nth-child(6) {
+            transition-delay: 1s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== 选购页面 ========== */
+        .shop-page {
+            display: none;
+            padding: 30px 0;
+        }
+        .shop-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .shop-item {
+            width: 200px;
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .shop-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .shop-item h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .shop-item .price {
+            color: #ff4d4f;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .shop-item button {
+            padding: 6px 12px;
+            background: #1890ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .shop-item button:hover {
+            background: #ff4d4f;
+        }
+
+        /* 购物车 */
+        .cart-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cart-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-total {
+            color: #ff4d4f;
+            font-weight: bold;
+        }
+        .cart-list {
+            margin-bottom: 15px;
+        }
+        .cart-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cart-item-name {
+            width: 120px;
+        }
+        .cart-item-num {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .num-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .cart-clear {
+            padding: 8px 16px;
+            background: #ff4d4f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .back-btn {
+            padding: 8px 16px;
+            background: #1890ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* ========== 页脚 ========== */
+        footer {
+            background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%);
+            color: #fff;
+            padding: 2rem 0;
+            border-radius: 20px 20px 0 0;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .footer-links ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .footer-links ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        .footer-links ul li a:hover {
+            opacity: 1;
+            color: #ffe58f;
+        }
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 右侧悬浮栏 -->
+    <div class="right">
+        <ul>
+            <li>
+                <a class="iconfont icon-gerenzhongxin"></a>
+                <span class="info">个人中心</span>
+            </li>
+            <li>
+                <a class="iconfont icon-shoujiapp"></a>
+                <span class="info">手机APP</span>
+            </li>
+            <li>
+                <a class="iconfont icon-shouhoufuwu"></a>
+                <span class="info">售后服务</span>
+            </li>
+            <li>
+                <a class="iconfont icon-kefu"></a>
+                <span class="info">人工客服</span>
+            </li>
+            <li onclick="goShop()">
+                <a class="iconfont icon-cart"></a>
+                <span class="info">购物车</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav>
+        <img src="images/31.jpg" class="nav-logo" alt="娃哈哈">
+        <div class="container">
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#product">产品中心</a>
+                    <ul>
+                        <li><a href="#drink">饮料系列</a></li>
+                        <li><a href="#food">食品系列</a></li>
+                        <li><a href="#new">新品上市</a></li>
+                    </ul>
+                </li>
+                <li><a href="#rank">人气榜单</a>
+                    <ul>
+                        <li><a href="#">原味AD钙</a></li>
+                        <li><a href="#">草莓味</a></li>
+                        <li><a href="#">水蜜桃味</a></li>
+                        <li><a href="#">乳酸菌味</a></li>
+                        <li><a href="#">胶原蛋白味</a></li>
+                    </ul>
+                </li>
+                <li><a href="#history">品牌历程</a>
+                    <ul>
+                        <li><a href="#">1987</a></li>
+                        <li><a href="#">1996</a></li>
+                        <li><a href="#">2005</a></li>
+                        <li><a href="#">2024</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact">联系我们</a>
+                    <ul>
+                        <li><a href="#">关于我们</a></li>
+                        <li><a href="#">售后服务</a></li>
+                        <li><a href="#">招聘信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="search">
+            <input type="text" id="searchInput" placeholder="请输入商品"/>
+            <button class="iconfont icon-sousuo" onclick="searchToShop()"></button>
+        </div>
+    </nav>
+
+    <!-- 主页面 -->
+    <div id="main-page">
+        <!-- Banner -->
+        <div class="container" id="home">
+            <div class="banner">
+                <img src="images/1.jpg" alt="娃哈哈品牌banner" class="banner-img">
+                <div class="banner-mask"></div>
+                <div class="banner-content">
+                    <h1>喝<span>娃哈哈</span>，天天笑哈哈</h1>
+                    <p>陪伴几代人成长的国民饮品，始终坚守品质，传递快乐</p>
+                    <div class="banner-btn" onclick="goShop()">立即选购</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 明星产品 -->
+        <div class="container" id="product">
+            <h2 class="section-title">明星产品</h2>
+            <div class="product-container">
+                <div class="product-card">
+                    <div class="card-bubble"></div>
+                    <img src="images/220新AD.png" alt="AD钙奶原味">
+                    <h3>AD钙奶原味</h3>
+                    <p>经典国民饮品，酸甜可口，补充维生素AD，陪伴童年成长</p>
+                    <span class="price">¥4.5/瓶</span>
+                    <div class="buy-btn" onclick="goShop()">立即购买</div>
+                </div>
+                <div class="product-card">
+                    <div class="card-bubble"></div>
+                    <img src="images/450新AD乳酸菌.png" alt="AD钙奶乳酸菌">
+                    <h3>AD钙奶乳酸菌味</h3>
+                    <p>酸甜乳酸菌搭配醇香奶源，清爽解腻，好喝无负担</p>
+                    <span class="price">¥4.5/瓶</span>
+                    <div class="buy-btn" onclick="goShop()">立即购买</div>
+                </div>
+                <div class="product-card">
+                    <div class="card-bubble"></div>
+                    <img src="images/450新AD胶原蛋白.png" alt="AD钙胶原蛋白">
+                    <h3>AD钙胶原蛋白味</h3>
+                    <p>小分子胶原蛋白易吸收，内调好气色，好喝又养颜</p>
+                    <span class="price">¥4.5/瓶</span>
+                    <div class="buy-btn" onclick="goShop()">立即购买</div>
+                </div>
+                <div class="product-card">
+                    <div class="card-bubble"></div>
+                    <img src="images/220AD草莓味新瓶型.png" alt="AD钙草莓味">
+                    <h3>AD钙奶草莓味</h3>
+                    <p>清甜草莓碰撞奶香，酸甜爽口，一口元气满满</p>
+                    <span class="price">¥4.5/瓶</span>
+                    <div class="buy-btn" onclick="goShop()">立即购买</div>
+                </div>
+                <div class="product-card">
+                    <div class="card-bubble"></div>
+                    <img src="images/220AD蜜桃味新瓶型.png" alt="AD钙蜜桃味">
+                    <h3>AD钙奶水蜜桃味</h3>
+                    <p>清甜蜜桃奶香交融，丝滑清甜，满满少女心</p>
+                    <span class="price">¥4.5/瓶</span>
+                    <div class="buy-btn" onclick="goShop()">立即购买</div>
+                </div>
+                <div class="product-card">
+                    <div class="card-bubble"></div>
+                    <img src="images/sww.png" alt="爽歪歪">
+                    <h3>爽歪歪</h3>
+                    <p>益生菌发酵酸奶饮品，口感醇厚，助力消化，小朋友超爱喝</p>
+                    <span class="price">¥3.5/瓶</span>
+                    <div class="buy-btn" onclick="goShop()">立即购买</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 轮播图 -->
+        <div id="banne">
+            <img id="img" src="images/R-C.jpg" alt="">
+            <a href="javascript:;" class="prev">&lt;</a>
+            <a href="javascript:;" class="next">&gt;</a>
+            <ul id="button">
+                <li class="select"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+
+        <!-- 产品详情浮现卡片 -->
+        <div class="black-bg-container">
+            <div class="food">
+                <img src="images/450新AD.png" alt="" />
+                <h3>经典AD钙原味</h3>
+                <p>娃哈哈王牌爆款，一代人的童年回忆。酸甜平衡、奶香浓郁，钙质与维生素双重营养加持。口感清爽顺滑，复古经典配方经久不衰。</p>
+            </div>
+            <div class="food">
+                <img src="images/220AD蜜桃味新瓶型.png" alt="" />
+                <h3>蜜桃AD钙</h3>
+                <p>清甜蜜桃奶香交融，一口丝滑清甜，满满少女心！果香清新不腻，夏日必备风味。</p>
+            </div>
+            <div class="food">
+                <img src="images/450新AD乳酸菌.png" alt="" />
+                <h3>乳酸菌AD钙</h3>
+                <p>酸甜乳酸菌风味，发酵口感柔和，清爽解腻开胃，0负担好喝更健康。</p>
+            </div>
+            <div class="food">
+                <img src="images/450新AD胶原蛋白.png" alt="" />
+                <h3>胶原蛋白AD钙</h3>
+                <p>添加高活性胶原蛋白，小分子易吸收，内调养颜，喝出透亮好肌肤。</p>
+            </div>
+            <div class="food">
+                <img src="images/220AD草莓味新瓶型.png" alt="" />
+                <h3>草莓AD钙</h3>
+                <p>清甜草莓撞上浓郁奶香，酸甜爽口，果香鲜活，一口唤醒元气活力。</p>
+            </div>
+            <div class="food">
+                <img src="images/sww.png" alt="" />
+                <h3>爽歪歪</h3>
+                <p>益生菌发酵酸奶饮品，口感顺滑醇厚，助力肠道消化，小朋友最爱。</p>
+            </div>
+        </div>
+
+        <!-- 人气榜单 → AD钙各口味销量榜 -->
+        <div class="container" id="rank">
+            <h2 class="section-title">AD钙口味销量榜单</h2>
+            <div class="rank-section">
+                <div class="rank-item">
+                    <div class="rank-header">
+                        <span class="rank-name">原味AD钙奶</span>
+                        <span class="rank-value">99%</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-bar" style="width: 99%"></div>
+                    </div>
+                </div>
+                <div class="rank-item">
+                    <div class="rank-header">
+                        <span class="rank-name">草莓味AD钙奶</span>
+                        <span class="rank-value">93%</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-bar" style="width: 93%"></div>
+                    </div>
+                </div>
+                <div class="rank-item">
+                    <div class="rank-header">
+                        <span class="rank-name">水蜜桃味AD钙奶</span>
+                        <span class="rank-value">88%</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-bar" style="width: 88%"></div>
+                    </div>
+                </div>
+                <div class="rank-item">
+                    <div class="rank-header">
+                        <span class="rank-name">乳酸菌味AD钙奶</span>
+                        <span class="rank-value">85%</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-bar" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="rank-item">
+                    <div class="rank-header">
+                        <span class="rank-name">胶原蛋白味AD钙奶</span>
+                        <span class="rank-value">82%</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-bar" style="width: 82%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 品牌历程 -->
+        <div class="container" id="history">
+            <h2 class="section-title">品牌成长历程</h2>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>年份</th>
+                        <th>里程碑事件</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1987年</td>
+                        <td>娃哈哈集团成立，开启国民饮品品牌之路</td>
+                    </tr>
+                    <tr>
+                        <td>1996年</td>
+                        <td>经典AD钙奶上市，成为几代人的童年记忆</td>
+                    </tr>
+                    <tr>
+                        <td>2005年</td>
+                        <td>营养快线重磅上市，开创早餐饮品新品类</td>
+                    </tr>
+                    <tr>
+                        <td>2024年</td>
+                        <td>AD钙多口味全新升级，持续领跑饮品行业</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ====================== 选购页面 ====================== -->
+    <div class="shop-page" id="shop-page">
+        <div class="container">
+            <button class="back-btn" onclick="goBack()">返回首页</button>
+            <h2 class="section-title">商品选购</h2>
+
+            <div class="shop-container">
+                <div class="shop-item">
+                    <img src="images/220新AD.png">
+                    <h4>AD钙原味</h4>
+                    <div class="price">¥4.5</div>
+                    <button onclick="addCart('AD钙原味',4.5)">加入购物车</button>
+                </div>
+                <div class="shop-item">
+                    <img src="images/220AD草莓味新瓶型.png">
+                    <h4>AD钙草莓味</h4>
+                    <div class="price">¥4.5</div>
+                    <button onclick="addCart('AD钙草莓味',4.5)">加入购物车</button>
+                </div>
+                <div class="shop-item">
+                    <img src="images/220AD蜜桃味新瓶型.png">
+                    <h4>AD钙蜜桃味</h4>
+                    <div class="price">¥4.5</div>
+                    <button onclick="addCart('AD钙蜜桃味',4.5)">加入购物车</button>
+                </div>
+                <div class="shop-item">
+                    <img src="images/450新AD乳酸菌.png">
+                    <h4>AD钙乳酸菌味</h4>
+                    <div class="price">¥4.5</div>
+                    <button onclick="addCart('AD钙乳酸菌味',4.5)">加入购物车</button>
+                </div>
+                <div class="shop-item">
+                    <img src="images/450新AD胶原蛋白.png">
+                    <h4>AD钙胶原蛋白味</h4>
+                    <div class="price">¥4.5</div>
+                    <button onclick="addCart('AD钙胶原蛋白味',4.5)">加入购物车</button>
+                </div>
+                <div class="shop-item">
+                    <img src="images/sww.png">
+                    <h4>爽歪歪</h4>
+                    <div class="price">¥3.5</div>
+                    <button onclick="addCart('爽歪歪',3.5)">加入购物车</button>
+                </div>
+            </div>
+
+            <div class="cart-box">
+                <h3 class="cart-title">
+                    shopping cart
+                    <span class="cart-total" id="cart-total">总计：¥0.00</span>
+                </h3>
+                <div class="cart-list" id="cart-list"></div>
+                <button class="cart-clear" onclick="clearCart()">清空购物车</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#">关于我们</a></li>
+                        <li><a href="#">产品系列</a></li>
+                        <li><a href="#">招商合作</a></li>
+                        <li><a href="#">联系客服</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                    </ul>
+                </div>
+                <p class="copyright">© 2025 娃哈哈集团 版权所有 | 国民饮品 快乐相伴</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 搜索跳转商品页
+        function searchToShop(){
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('shop-page').style.display = 'block';
+            document.getElementById('searchInput').value = '';
+        }
+
+        // 轮播图
+        const images = [
+            "images/R-C.jpg",
+            "images/6.png",
+            "images/333.png",
+            "images/444.png",
+            "images/666.png"
+        ];
+        const img = document.getElementById('img');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+        const dots = document.querySelectorAll('#button li');
+        let index = 0;
+        let timer;
+        img.src = images[index];
+
+        function changeImg() {
+            img.style.opacity = 0;
+            setTimeout(() => {
+                index = (index + 1) % images.length;
+                img.src = images[index];
+                setDot();
+                img.style.opacity = 1;
+            }, 600);
+        }
+        function setDot() {
+            dots.forEach((dot, i) => {
+                dot.className = i === index ? 'select' : '';
+            });
+        }
+        next.onclick = () => {
+            clearInterval(timer);
+            changeImg();
+            autoPlay();
+        };
+        prev.onclick = () => {
+            clearInterval(timer);
+            img.style.opacity = 0;
+            setTimeout(() => {
+                index = (index - 1 + images.length) % images.length;
+                img.src = images[index];
+                setDot();
+                img.style.opacity = 1;
+            }, 600);
+            autoPlay();
+        };
+        dots.forEach((dot, i) => {
+            dot.onclick = () => {
+                clearInterval(timer);
+                img.style.opacity = 0;
+                setTimeout(() => {
+                    index = i;
+                    img.src = images[index];
+                    setDot();
+                    img.style.opacity = 1;
+                }, 600);
+                autoPlay();
+            }
+        });
+        function autoPlay() {
+            timer = setInterval(changeImg, 4000);
+        }
+        autoPlay();
+
+        // ====================== 购物车功能（升级版：数量、总价、加减） ======================
+        let cart = [];
+
+        // 跳选购页
+        function goShop() {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('shop-page').style.display = 'block';
+        }
+
+        // 返回首页
+        function goBack() {
+            document.getElementById('shop-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
+        }
+
+        // 加入购物车（去重）
+        function addCart(name, price) {
+            const has = cart.find(item => item.name === name);
+            if (has) {
+                has.num++;
+            } else {
+                cart.push({ name, price, num: 1 });
+            }
+            renderCart();
+            alert(name + ' 已加入购物车！');
+        }
+
+        // 渲染购物车 + 计算总价
+        function renderCart() {
+            let list = document.getElementById('cart-list');
+            let total = document.getElementById('cart-total');
+            list.innerHTML = '';
+
+            let sum = 0;
+            cart.forEach(item => {
+                sum += item.price * item.num;
+            });
+            total.innerText = `总计：¥${sum.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                list.innerHTML = '<div style="padding:10px;">购物车为空</div>';
+                return;
+            }
+
+            cart.forEach((item, i) => {
+                let div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <div class="cart-item-info">
+                        <span class="cart-item-name">${item.name}</span>
+                        <span>¥${item.price.toFixed(2)}</span>
+                    </div>
+                    <div class="cart-item-num">
+                        <button class="num-btn" onclick="changeNum(${i},-1)">-</button>
+                        <span>${item.num}</span>
+                        <button class="num-btn" onclick="changeNum(${i},1)">+</button>
+                    </div>
+                    <button onclick="delCart(${i})" style="background:#ff4d4f;color:white;border:none;padding:3px 6px;border-radius:4px;cursor:pointer;">删除</button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // 修改数量
+        function changeNum(i, n) {
+            cart[i].num += n;
+            if (cart[i].num <= 0) {
+                cart.splice(i, 1);
+            }
+            renderCart();
+        }
+
+        // 删除单个
+        function delCart(i) {
+            cart.splice(i, 1);
+            renderCart();
+        }
+
+        // 清空购物车
+        function clearCart() {
+            if (confirm('确定清空购物车吗？')) {
+                cart = [];
+                renderCart();
+            }
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>
